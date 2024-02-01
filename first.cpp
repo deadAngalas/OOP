@@ -1,10 +1,11 @@
 #include<iostream>
 #include<cstdlib>
 #include<cstring>
-#define N 100
+#define SIZE 20
 
 using namespace std;
 
+/*
 class strings
 {
 private:
@@ -44,24 +45,45 @@ void strings::display() // izvadit tekstu
 {
   cout << "Teksts: " << str;
 }
+*/
 
 class Stack
 {
 private:
-  char s[N];
+  char s[SIZE];
   int sp;
 public:
   Stack();
-  Stack* create()
-  {
-    Stack* s = new Stack;
-    return s;
-  }
+  void push(char v);
+  char pop();
 };
 
 Stack::Stack()
 {
- sp = 0;
+  cout << "Initializing...\n\n";
+  sp = 0;
+}
+
+void Stack::push(char v)
+{
+  if(sp == SIZE)
+  {
+    cerr << "Overflow" << endl;
+    return;
+  }
+  s[sp] = v;
+  sp++;
+}
+
+char Stack::pop()
+{
+  if(sp == 0)
+  {
+    cerr << "Underflow" << endl;
+    return 0;
+  }
+  sp--;
+  return s[sp];
 }
 
 int main()
@@ -73,8 +95,30 @@ int main()
   s1.display();
   */
 
-  Stack* stack1;
-  stack1->create();
+  Stack *s1 = new Stack();
+
+  s1->push('A');
+  s1->push('B');
+  s1->push('C');
+
+  cout << "S1 elements: \n\n";
+  cout << s1->pop() << " \n";
+  cout << s1->pop() << " \n";
+  cout << s1->pop() << " \n";
+  cout << s1->pop() << endl;
+
+  Stack *s2 = new Stack();
+
+  for(int i = 0; i < 20; i++)
+  {
+    s2->push('A' + i);
+  }
+
+  cout << "S2 elements: \n\n";
+  for(int i = 0; i < 21; i++)
+  {
+    cout << s2->pop() << " ";
+  }
 
   system("pause>nul");
   return 0;
