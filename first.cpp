@@ -47,6 +47,7 @@ void strings::display() // izvadit tekstu
 }
 */
 
+/*
 class Stack
 {
 private:
@@ -85,6 +86,7 @@ char Stack::pop()
   sp--;
   return s[sp];
 }
+*/
 
 int main()
 {
