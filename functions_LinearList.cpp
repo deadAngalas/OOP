@@ -50,6 +50,14 @@ void Saraksts::PlusSize()
   size++;
 }
 
+/*
+Saraksts::Saraksts()
+{
+  head = NULL;
+  size = 0;
+}
+*/
+
 void Saraksts::Init()
 {
   head = NULL;

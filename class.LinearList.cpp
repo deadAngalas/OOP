@@ -17,6 +17,7 @@ private:
   int size;
 public:
   void Init();
+  // Saraksts();
   Node*& headCheck();
   void PlusSize();
   int NodeCount();

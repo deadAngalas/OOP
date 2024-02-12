@@ -2,317 +2,13 @@
 #include<iomanip>
 #include<cstdlib>
 #include<conio.h>
+#include "functions_BST.cpp"
 #define N 100
 
 using namespace std;
 
-void ProgEnd()
-{
-  system("cls");
-  cout << "\n\n\t\t\tCLOSING...\n\n";
-  cout <<"              ,---------------------------," << endl;
-  cout <<"              |  ---------------------  |"<< endl;
-  cout <<"              | |                       | |"<< endl;
-  cout <<"              | |     Binary            | |"<< endl;
-  cout <<"              | |         Search        | |"<< endl;
-  cout <<"              | |              Tree     | |"<< endl;
-  cout <<"              | |                       | |"<< endl;
-  cout <<"              |  _____________________  |"<< endl;
-  cout <<"              |___________________________|"<< endl;
-  cout <<"            ,---_____     []     _______------,"<< endl;
-  cout <<"            |      ______________           |"<< endl;
-  cout <<"        ___________________________________   | ___"<< endl;
-  cout <<"        |                                   |   |    )"<< endl;
-  cout <<"        |  _ _ _                 [-------]  |   |   ("<< endl;
-  cout <<"        |  o o o                 [-------]  |      _)_"<< endl;
-  cout <<"        |__________________________________ |       "<< endl;
-  cout <<"    -------------------------------------|      ( )"<< endl;
-  cout <<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
-  cout << endl;
-}
-
-struct Node
-{
-  int data;
-  Node *left, *right;
-};
-
-Node *CreateNode()
-{
-  Node *newNode;
-  newNode = new Node;
-  cout << "\nEnter number to node: ";
-  cin >> newNode->data;
-
-  newNode->left = NULL;
-  newNode->right = NULL;
-
-  return newNode;
-}
-
-void PrintTree(Node *cur, int padding = 0) // RVL princips - 90 gradi
-{
-  if(cur != NULL)
-  {
-    PrintTree(cur->right, padding+=5);
-    cout << setw(padding) << "[" << cur->data << "]" << endl;
-    PrintTree(cur->left, padding);
-  }
-}
-
-// preorder; VLR
-// inorder; LVR
-// postorder; LRV
-
-void PreOrder(Node *p) // VLR
-{
-  if(p != NULL)
-  {
-    cout << p->data << " ";
-    PreOrder(p->left);
-    PreOrder(p->right);
-  }
-}
-
-void InOrder(Node *p) // LVR
-{
-  if(p != NULL)
-  {
-    InOrder(p->left);
-    cout << p->data << " ";
-    InOrder(p->right);
-  }
-}
-
-void PostOrder(Node *p) // LRV
-{
-  if(p != NULL)
-  {
-    PostOrder(p->left);
-    PostOrder(p->right);
-    cout << p->data << " ";
-  }
-}
-
-Node *AddNode(Node *root)
-{
-  //create node
-  Node *newNode, *cur;
-  newNode = CreateNode();
-
-  cur = root;
-
-  while((cur->data > newNode->data && cur->left != NULL) || (cur->data <= newNode->data && cur->right != NULL))
-  {
-    while(cur->data > newNode->data && cur->left != NULL)
-    {
-      cur = cur->left;
-    }
-    while(cur->data <= newNode->data && cur->right != NULL)
-    {
-      cur = cur->right;
-    }
-  }
-
-  if(cur->data > newNode->data && cur->left == NULL)
-  {
-    cur->left = newNode;
-  }
-  if(cur->data <= newNode->data && cur->right == NULL)
-  {
-    cur->right = newNode;
-  }
-
-  return 0;
-}
-
-Node *FindNode(Node *root, int x)
-{
-  Node *cur = new Node;
-  cur = root;
-
-  while((cur->data > x && cur->left != NULL) || (cur->data <= x && cur->right != NULL) && cur->data != x)
-  {
-    while(cur->data > x && cur->left != NULL && cur->data != x)
-    {
-      cur = cur->left;
-    }
-    while(cur->data <= x && cur->right != NULL && cur->data != x)
-    {
-      cur = cur->right;
-    }
-  }
-
-  if(cur->data == x)
-  {
-    cout << "\nSuccessfully Found! :)\n";
-  }
-  else
-  {
-    cur = NULL;
-    cout << "\nSorry! There is no your Node! :(\n";
-  }
-
-  return cur;
-}
-
-Node *FindParent(Node *root, int x)
-{
-  Node *cur = new Node;
-  Node *parent;
-  cur = root;
-
-  while((cur->data > x && cur->left != NULL) || (cur->data <= x && cur->right != NULL) && cur->data != x)
-  {
-    while(cur->data > x && cur->left != NULL && cur->data != x)
-    {
-      parent = cur;
-      cur = cur->left;
-    }
-    while(cur->data <= x && cur->right != NULL && cur->data != x)
-    {
-      parent = cur;
-      cur = cur->right;
-    }
-  }
-
-  if(root->data == x || cur->data != x)
-  {
-    parent = NULL;
-  }
-
-  return parent;
-}
-
-int NodesCount(Node *cur)
-{
-  if(cur != NULL)
-  {
-    return 1 + NodesCount(cur->left) + NodesCount(cur->right);
-  }
-  else return 0;
-}
-
-Node *SwapTree(Node *cur)
-{
-  Node *temp1 = NULL;
-  Node *temp2 = NULL;
-
-  if(cur != NULL)
-  {
-    temp1 = SwapTree(cur->left);
-    temp2 = SwapTree(cur->right);
-    cur->right = temp1;
-    cur->left = temp2;
-  }
-  return cur;
-}
-
-Node *RemoveNode(Node *root)
-{
-  Node *x, *y, *temp;
-
-  int value;
-  cout << "Enter which Node need to remove: ";
-  cin >> value;
-  x = FindNode(root, value);
-
-  if(x != NULL)
-  {
-    // Node who is a root
-    if(x == root)
-    {
-      // root who has no children
-      if(x->left == NULL && x->right == NULL)
-      {
-        delete root;
-        cout << "\nTree was fully removed!" << endl;
-        return NULL;
-      }
-      // root who has only right child
-      if(x->left == NULL)
-      {
-        root = x->right;
-        delete x;
-        cout << "\nRoot was successfully removed!" << endl;
-        return root;
-      }
-      // root who has only left child
-      if(x->right == NULL)
-      {
-        root = x->left;
-        delete x;
-        cout << "\nRoot was successfully removed!" << endl;
-        return root;
-      }
-      // two children
-      temp = x->left;
-      y = x->right;
-      root = temp;
-      while(temp->right != NULL) temp = temp->right;
-      temp->right = y;
-      delete x;
-      cout << "\nRoot was successfully removed!" << endl;
-      return root;
-    }
-
-    y = FindParent(root, value);
-
-    // Node who has no children
-    if(x->left == NULL && x->right == NULL && x != root)
-    {
-      if(y->left == x) y->left = NULL;
-      else y->right = NULL;
-      delete x;
-    }
-
-    // Node who has 1 child
-    if(x->left == NULL && x->right != NULL && x != root)
-    {
-      if(y->left == x) y->left = x->right;
-      else y->right = x->right;
-      x->right = NULL;
-      delete x;
-    }
-    if(x->left != NULL && x->right == NULL && x != root)
-    {
-      if(y->left == x) y->left = x->left;
-      else y->right = x->left;
-      x->left = NULL;
-      delete x;
-    }
-
-    // Node who has 2 children
-    if(x->left != NULL && x->right != NULL && x != root)
-    {
-      if(y->left == x)
-      {
-        temp = x->left;
-        y->left = x->left;
-        while(temp->right != NULL) temp = temp->right;
-        temp->right = x->right;
-        x->left = NULL;
-        x->right = NULL;
-      }
-      else
-      {
-        temp = x->right;
-        y->right = x->right;
-        while(temp->left != NULL) temp = temp->left;
-        temp->left = x->left;
-        x->left = NULL;
-        x->right = NULL;
-      }
-      delete x;
-    }
-    cout << "\nNode was successfully removed!" << endl;
-  }
-  return root;
-}
-
 int main()
 {
-  Node *root = NULL;
   enum KEYS { num1 = 49, num2 = 50, num3 = 51 , num4 = 52, num5 = 53, num6 = 54, num7 = 55, num8 = 56, num9 = 57, num10 = 45, num11 = 61, num12 = 112 };
   /*
   num10 = 45; it is   -
@@ -321,9 +17,11 @@ int main()
   */
   int choice;
 
+  BSTree *t = new BSTree;
+
   system("cls");
   cout << "\n\t\tBinary Search Tree\n\n";
-  cout << "\n Author: Vladislav Ryazancev\n Ver: 1.2.7\n Date (start): 18.10.2023 / 14:28\n Date (end): 16.11.2023 / 16:18\n\n";
+  cout << "\n Author: Vladislav Ryazancev\n Ver: 2.0.1\n Date (start): 18.10.2023 / 14:28\n Date (end): 16.11.2023 / 16:18\n Modified: 12.02.2024 / 11:34\n Closed: 12.02.2024 / 14:43\n\n";
 
   do
     {
@@ -348,9 +46,9 @@ int main()
       cout << "\n--------- COUNT & TURNING ----------\n";
       cout << "10. Count How many Nodes (-)\n";
       cout << "11. Swap Tree (=)\n";
-      cout << "\n-------------- STOP --------------\n";
+      cout << "\n-------------- STOP ----------------\n";
       cout << "12. Stop Program (p)\n\n";
-      cout << "-----------------------------------\n\n";
+      cout << "------------------------------------\n\n";
 
       choice = getch();
 
@@ -358,29 +56,29 @@ int main()
       {
         case num1: // create root
         {
-          if(!root)
+          if(!t->rootCheck())
           {
-            root = CreateNode();
+            t->rootCheck() = CreateNode();
           }
           else cout << "Root already exist!\n";
           break;
         }
         case num2: // add node
         {
-          if(root)
+          if(t->rootCheck())
           {
-            AddNode(root);
+            t->AddNode();
           }
           else cout << "Tree does not exists!\n";
           break;
         }
         case num3:
         {
-          if(root)
+          if(t->rootCheck())
           {
-            cout << "Root data: " << root->data << endl;
-            cout << "Root left pointer: " << root->left << endl;
-            cout << "Root right pointer: " << root->right << endl;
+            cout << "Root data: " << t->rootCheck()->data << endl;
+            cout << "Root left pointer: " << t->rootCheck()->left << endl;
+            cout << "Root right pointer: " << t->rootCheck()->right << endl;
           }
           else cout << "Root does not exists! Create Root!\n";
           system("pause>nul");
@@ -388,10 +86,11 @@ int main()
         }
         case num4:
         {
-          if(root)
+          if(t->rootCheck())
           {
+            int padding = 0;
             cout << "Tree elements:\n\n";
-            PrintTree(root);
+            t->PrintTree(t->rootCheck(), padding);
           }
           else cout << "Tree does not exists!\n";
           system("pause>nul");
@@ -399,20 +98,20 @@ int main()
         }
         case num5:
         {
-          if(root)
+          if(t->rootCheck())
           {
             cout << "Tree elements (VLR):\n";
-            PreOrder(root);
+            t->PreOrder(t->rootCheck());
           }
           else cout << "Tree does not exists!\n";
           break;
         }
         case num6:
         {
-          if(root)
+          if(t->rootCheck())
           {
             cout << "Tree elements (LVR):\n";
-            InOrder(root);
+            t->InOrder(t->rootCheck());
           }
           else cout << "Tree does not exists!\n";
           system("pause>nul");
@@ -420,10 +119,10 @@ int main()
         }
         case num7:
         {
-          if(root)
+          if(t->rootCheck())
           {
             cout << "Tree elements (LRV):\n";
-            PostOrder(root);
+            t->PostOrder(t->rootCheck());
           }
           else cout << "Tree does not exists!\n";
           system("pause>nul");
@@ -431,12 +130,12 @@ int main()
         }
         case num8: // find
         {
-          if(root)
+          if(t->rootCheck())
           {
             int x;
             cout << "Enter which Node need to find: ";
             cin >> x;
-            FindNode(root, x);
+            t->FindNode(x);
           }
           else cout << "Tree does not exists!\n";
           system("pause>nul");
@@ -444,9 +143,9 @@ int main()
         }
         case num9: // remove
         {
-          if(root)
+          if(t->rootCheck())
           {
-            root = RemoveNode(root);
+            t->RemoveNode();
           }
           else cout << "Tree does not exists!\n";
           system("pause>nul");
@@ -454,9 +153,9 @@ int main()
         }
         case num10: // count
         {
-          if(root)
+          if(t->rootCheck())
           {
-            int count = NodesCount(root);
+            int count = t->NodesCount(t->rootCheck());
             cout << "There is " << count << " Node/s in the tree!\n";
           }
           else cout << "Tree does not exists!\n";
@@ -465,9 +164,9 @@ int main()
         }
         case num11: // swap
         {
-          if(root)
+          if(t->rootCheck())
           {
-            SwapTree(root);
+            t->SwapTree(t->rootCheck());
             cout << "Tree has been swapped!" << endl;
           }
           else cout << "Tree does not exists!\n";
