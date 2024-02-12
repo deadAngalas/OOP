@@ -21,7 +21,7 @@ int main()
 
   system("cls");
   cout << "\n\t\tBinary Search Tree\n\n";
-  cout << "\n Author: Vladislav Ryazancev\n Ver: 2.0.1\n Date (start): 18.10.2023 / 14:28\n Date (end): 16.11.2023 / 16:18\n Modified: 12.02.2024 / 11:34\n Closed: 12.02.2024 / 14:43\n\n";
+  cout << "\n Author: Vladislav Ryazancev\n Ver: 2.0.1\n Date (start): 18.10.2023 / 14:28\n Date (end): 16.11.2023 / 16:18\n Modified: 12.02.2024 / 11:34\n Closed: 12.02.2024 / 13:49\n\n";
 
   do
     {
