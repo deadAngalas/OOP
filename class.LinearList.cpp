@@ -1,9 +1,3 @@
-#include<iostream>
-#include<cstdlib>
-#include<conio.h>
-
-using namespace std;
-
 struct Node
 {
   int data;

@@ -2,7 +2,6 @@
 #include<cstdlib>
 #include<conio.h>
 #include "functions_LinearList.cpp"
-#define N 100
 
 using namespace std;
 

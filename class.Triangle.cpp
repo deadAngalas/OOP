@@ -13,4 +13,5 @@ public:
   double get_c();
   double perimetr();
   double laukums();
+  bool check();
 };

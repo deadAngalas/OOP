@@ -1,9 +1,7 @@
 #include<iostream>
-#include<iomanip>
 #include<cstdlib>
 #include<conio.h>
 #include "functions_BST.cpp"
-#define N 100
 
 using namespace std;
 

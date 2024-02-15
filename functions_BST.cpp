@@ -3,7 +3,6 @@
 #include<cstdlib>
 #include<conio.h>
 #include "class.BST.cpp"
-#define N 100
 
 using namespace std;
 

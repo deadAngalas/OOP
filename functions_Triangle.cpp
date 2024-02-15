@@ -41,3 +41,9 @@ double Triangle::laukums()
   double pp = perimetr()/2;
   return sqrt(pp*(pp-a)*(pp-b)*(pp-c));
 }
+
+bool Triangle::check()
+{
+  if(a + b > c && a + c > b && b + c > a) return true;
+  return false;
+}

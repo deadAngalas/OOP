@@ -1,10 +1,3 @@
-#include<iostream>
-#include<iomanip>
-#include<cstdlib>
-#include<conio.h>
-
-using namespace std;
-
 struct Node
 {
   int data;
