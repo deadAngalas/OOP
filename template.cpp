@@ -1,13 +1,13 @@
 #include<iostream>
 #include<cstdlib>
-#include "functions_Triangle.cpp"
+#include "functions_Triangle_Template.cpp"
 #define N 100
 
 using namespace std;
 
 int main()
 {
-  Triangle t1(4,5,6);
+  Triangle<char> t1('a', 'b', 'c');
   double x;
   bool OK;
 

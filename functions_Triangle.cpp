@@ -1,5 +1,22 @@
+#include<iostream>
+#include<cmath>
 #include "class.Triangle.cpp"
-#include <cmath>
+
+using namespace std;
+
+Triangle::Triangle()
+{
+  a = 0;
+  b = 0;
+  c = 0;
+}
+
+Triangle::Triangle(double a1, double b1, double c1)
+{
+  a = a1;
+  b = b1;
+  c = c1;
+}
 
 void Triangle::set_a(double aa)
 {
@@ -46,4 +63,9 @@ bool Triangle::check()
 {
   if(a + b > c && a + c > b && b + c > a) return true;
   return false;
+}
+
+Triangle::~Triangle()
+{
+  cout << "\n\n\tEND!\n";
 }
