@@ -17,7 +17,7 @@ int main()
   */
   int choice;
 
-  // creation and initialization of new list
+  // pamainit <char> uz <double> | <int> | <float> 21. rinda un 63. rinda
   Saraksts<char>* s = new Saraksts<char>();
   s->Init();
 

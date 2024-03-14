@@ -15,7 +15,8 @@ int main()
   */
   int choice;
 
-  BSTree<double> *t = new BSTree<double>;
+  // pamainit <double> uz <char> | <int> | <float> 19.rinda un 60.rinda
+  BSTree<char> *t = new BSTree<char>;
 
   system("cls");
   cout << "\n\t\tBinary Search Tree\n\n";
@@ -56,7 +57,7 @@ int main()
         {
           if(!t->rootCheck())
           {
-            t->rootCheck() = CreateNode<double>();
+            t->rootCheck() = CreateNode<char>();
           }
           else cout << "Root already exist!\n";
           break;
